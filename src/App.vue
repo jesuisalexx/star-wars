@@ -1,16 +1,27 @@
 <template>
   <!-- App.vue -->
   <v-app>
-    <v-navigation-drawer app>
-      <v-btn
-      to="/characters"
-      class="character-link"
-      >
-        Characters
-      </v-btn>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="(link, index) in links"
+          :key="index"
+          :to="link.url"
+          exact
+        >
+          <v-list-item-content>
+            <v-list-item-title>{{ link.label }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link to="/">
         <v-img
           :src="require('@/assets/star-wars.svg')"
@@ -37,7 +48,24 @@
 <script>
 export default {
   name: 'App',
-  components: {}
+  components: {},
+  data: () => ({
+    drawer: null,
+    links: [
+      {
+        label: 'Films',
+        url: {
+          name: 'home'
+        }
+      },
+      {
+        label: 'Characters',
+        url: {
+          name: 'characters'
+        }
+      }
+    ]
+  })
 }
 </script>
 

@@ -10,14 +10,25 @@ export default {
         { root: true }
       )
     },
-    getFilmData ({ dispatch }, filmId) {
-      return dispatch(
+    async getFilmData ({ dispatch }, filmId) {
+      const { result, data } = await dispatch(
         'api/get',
         {
           path: `films/${filmId}`
         },
         { root: true }
       )
+      if (result) {
+        const { result: photoResult, data: filmPhoto } = await dispatch(
+          'photoApi/getPhoto',
+          `Star Wars ${data.name}`,
+          { root: true }
+        )
+        if (photoResult) {
+          data.picture = filmPhoto
+        }
+      }
+      return { result, data }
     }
   }
 }

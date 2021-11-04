@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-img
-        :src="require('@/assets/star-wars.svg')"
+        :src="film.picture"
         height="200px"
         width="500px"
       />
@@ -19,7 +19,7 @@
         {{ film.director }}
       </v-card-title>
       <v-card-title>
-        Producer:222
+        Producer:
         {{ film.producer }}
       </v-card-title>
       <v-card-title style="width: 70%;">
@@ -28,13 +28,13 @@
       </v-card-title>
       <v-card-title>
         Characters :
-        <v-card-title
-            style="padding: 5px"
-            v-for="character in characters"
-            :key="character.id"
+        <div
+          style="padding: 5px"
+          v-for="character in characters"
+          :key="character.id"
         >
-          {{ character.data.name }},
-        </v-card-title>
+          {{ character.data.name }}
+        </div>
       </v-card-title>
     </div>
   </div>
@@ -54,19 +54,15 @@ export default {
     const film = ref({})
     const characters = ref([])
     const getFilm = async () => {
-      const { result, data } = await store.dispatch(
-        'films/getFilmData',
-        route.value.params.filmId
-      )
+      const { result, data } = await store.dispatch('films/getFilmData', route.value.params.filmId)
       if (result) {
         film.value = data
-        characters.value = await Promise.all(film.value.characters.map((val) => {
-          // Bad API realization workaround
-          const characterId = val.replace('https://swapi.dev/api/people/', '').replace('/', '')
-          return store.dispatch('characters/getCharacter', characterId)
-        }))
-        console.log(characters.value)
+        characters.value = await Promise.all(film.value.characters.map((character) => store.dispatch('characters/getCharacter', {
+          id: character.replace('https://swapi.dev/api/people/', '').replace('/', ''),
+          withPhoto: false
+        })))
       }
+      console.log(film.value)
     }
     getFilm()
 

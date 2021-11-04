@@ -24,11 +24,6 @@ const routes = [
     path: '/character/:characterId',
     name: 'character',
     component: () => import('@/views/Character.vue')
-  },
-  {
-    path: '/newApi',
-    name: 'newApi',
-    component: () => import('@/views/NewApi.vue')
   }
 ]
 

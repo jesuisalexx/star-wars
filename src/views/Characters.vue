@@ -37,6 +37,7 @@ export default {
       console.log(characters)
     }
     getCharacters()
+
     const onClickRow = (item) => {
       router.push({ name: 'character', params: { characterId: item.url.replace('https://swapi.dev/api/people/', '').replace('/', '') } })
       console.log(item)
