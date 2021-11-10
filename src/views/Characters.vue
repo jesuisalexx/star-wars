@@ -9,8 +9,8 @@
       <v-data-table
         :headers="headers"
         :items="characters"
-        :items-per-page="10"
         class="elevation-1"
+        hide-default-footer
         @click:row="onClickRow"
       ></v-data-table>
     </template>
@@ -21,6 +21,7 @@
 import { ref } from '@vue/composition-api'
 import { useStore } from '@/hooks/useStore'
 import { useRouter } from '@/hooks/useRouter'
+import { getIdFromLink } from '@/utils/workaround'
 
 export default {
   name: 'Characters',
@@ -39,7 +40,7 @@ export default {
     getCharacters()
 
     const onClickRow = (item) => {
-      router.push({ name: 'character', params: { characterId: item.url.replace('https://swapi.dev/api/people/', '').replace('/', '') } })
+      router.push({ name: 'character', params: { characterId: getIdFromLink(item.url, 'people') } })
       console.log(item)
     }
     return {

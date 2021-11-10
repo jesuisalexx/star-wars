@@ -1,8 +1,8 @@
 <template>
- <v-row>
+ <v-row class="pt-1">
    <template v-if="isLoading">
      <v-col
-       cols="4"
+       cols="3"
        v-for="id in Array(6).fill('#').map((val, idx) => idx)"
       :key="id"
      >
@@ -15,7 +15,7 @@
    </template>
    <template v-else>
      <v-col
-      cols="4"
+      cols="3"
       v-for="film in films"
       :key="film.id"
      >

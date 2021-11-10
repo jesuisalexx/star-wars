@@ -24,6 +24,11 @@ const routes = [
     path: '/character/:characterId',
     name: 'character',
     component: () => import('@/views/Character.vue')
+  },
+  {
+    path: '/planet/:planetId',
+    name: 'planet',
+    component: () => import('@/views/Planet.vue')
   }
 ]
 

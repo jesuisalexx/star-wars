@@ -4,6 +4,9 @@ import films from '@/store/films'
 import api from '@/store/api'
 import characters from '@/store/characters'
 import photoApi from '@/store/photoApi'
+import planets from '@/store/planets'
+import socialApi from '@/store/socialApi'
+import comments from '@/store/comments'
 
 Vue.use(Vuex)
 
@@ -12,6 +15,9 @@ export default new Vuex.Store({
     films,
     api,
     characters,
-    photoApi
+    photoApi,
+    planets,
+    socialApi,
+    comments
   }
 })

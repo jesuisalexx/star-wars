@@ -48,11 +48,13 @@ export default {
     const character = ref({})
     const store = useStore()
     const showCharacter = async () => {
-      const { result, data } = await store.dispatch('characters/getCharacter', route.value.params.characterId)
+      const { result, data } = await store.dispatch('characters/getCharacter', {
+        id: route.value.params.characterId
+      })
       if (result) {
         character.value = data
       }
-      console.log(character.value)
+      console.log(route.value.params.characterId)
     }
     showCharacter()
     return {

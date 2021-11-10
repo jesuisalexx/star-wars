@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="film-card mx-auto"
-    max-width="344"
+    max-width="400"
   >
     <v-img
       :src="require('@/assets/star-wars.svg')"
