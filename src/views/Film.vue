@@ -131,6 +131,12 @@
         </template>
       </v-card>
     </div>
+    <CommentForm
+      ref="test"
+      action="films/sendComment"
+      :userId="userId"
+      class="mt-2"
+    />
     <v-card
       class="mt-3"
       v-for="comment in comments"
@@ -203,9 +209,13 @@ import { ref } from '@vue/composition-api'
 import { useRouter } from '@/hooks/useRouter'
 import { useStore } from '@/hooks/useStore'
 import { getIdFromLink } from '@/utils/workaround'
+import CommentForm from '@/components/CommentForm'
 
 export default {
   name: 'Film',
+  components: {
+    CommentForm
+  },
   setup () {
     const store = useStore()
     const { route, router } = useRouter()
@@ -263,13 +273,15 @@ export default {
     const isCommentsLoading = ref(true)
     const showComments = async () => {
       isCommentsLoading.value = true
-      const { result, data } = await store.dispatch('comments/getFilmComments', route.value.params.filmId)
+      const { result, data } = await store.dispatch('comments/getSomeComments', { id: route.value.params.filmId })
       if (result) {
         comments.value = data
       }
       isCommentsLoading.value = false
     }
     showComments()
+
+    const userId = route.value.params.filmId
 
     return {
       film,
@@ -281,7 +293,8 @@ export default {
       planets,
       getIdFromLink,
       comments,
-      isCommentsLoading
+      isCommentsLoading,
+      userId
     }
   }
 }

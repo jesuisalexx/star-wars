@@ -1,11 +1,11 @@
 export default {
   namespaced: true,
   actions: {
-    getFilmComments ({ dispatch }, filmId) {
+    getSomeComments ({ dispatch }, { id }) {
       return dispatch(
         'socialApi/get',
         {
-          path: `posts/${filmId}/comments`
+          path: `posts/${id}/comments`
         },
         { root: true }
       )

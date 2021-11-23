@@ -1,31 +1,31 @@
 export default {
   namespaced: true,
   actions: {
-    async getPlanet ({ dispatch }, { id, withPhoto = true }) {
+    async getStarship ({ dispatch }, { id, withPhoto = true }) {
       const { result, data } = await dispatch(
         'api/get',
         {
-          path: `planets/${id}`
+          path: `starships/${id}`
         },
         { root: true }
       )
       if (result && withPhoto) {
-        const { result: photoResult, data: planetPhoto } = await dispatch(
+        const { result: photoResult, data: starshipPhoto } = await dispatch(
           'photoApi/getPhoto',
           `Star Wars ${data.name}`,
           { root: true }
         )
         if (photoResult) {
-          data.picture = planetPhoto
+          data.picture = starshipPhoto
         }
       }
       return { result, data }
     },
-    getAllPlanets ({ dispatch }) {
+    getAllStarships ({ dispatch }) {
       return dispatch(
         'api/get',
         {
-          path: 'planets'
+          path: 'starships'
         },
         { root: true }
       )

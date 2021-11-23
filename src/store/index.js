@@ -7,6 +7,7 @@ import photoApi from '@/store/photoApi'
 import planets from '@/store/planets'
 import socialApi from '@/store/socialApi'
 import comments from '@/store/comments'
+import starships from '@/store/starships'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     photoApi,
     planets,
     socialApi,
-    comments
+    comments,
+    starships
   }
 })

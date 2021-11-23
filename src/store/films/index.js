@@ -29,6 +29,20 @@ export default {
         }
       }
       return { result, data }
+    },
+    sendComment ({ dispatch }, { userId, title, body }) {
+      return dispatch(
+        'socialApi/post',
+        {
+          path: 'posts',
+          payload: {
+            title,
+            body,
+            userId
+          }
+        },
+        { root: true }
+      )
     }
   }
 }

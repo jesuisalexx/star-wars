@@ -1,15 +1,25 @@
 <template>
   <div>
-    <v-card
-      elevation="2"
-    >
-      <v-img max-height="300" :src="planet.picture"></v-img>
-      <v-card-title> Name:  {{ planet.name }}</v-card-title>
-      <v-card-subtitle class="pa-1 pl-4"> Population:  {{ planet.population }}</v-card-subtitle>
-      <v-card-subtitle class="pa-1 pl-4"> Gravity:  {{ planet.gravity }}</v-card-subtitle>
-      <v-card-subtitle class="pa-1 pl-4"> Climate:  {{ planet.climate }}</v-card-subtitle>
-      <v-card-subtitle class="pa-1 pl-4 pb-4"> Diameter:  {{ planet.diameter }}</v-card-subtitle>
-    </v-card>
+    <template>
+      <v-card
+        elevation="2"
+      >
+        <v-img max-height="300" :src="starship.picture"></v-img>
+        <v-icon>
+          mdi-flight
+        </v-icon>
+        <v-card-title>
+          <v-icon>
+            mdi-flight
+          </v-icon>
+          Name:  {{ starship.name }}
+        </v-card-title>
+        <v-card-subtitle class="pa-1 pl-4"> Model:  {{ starship.model }}</v-card-subtitle>
+        <v-card-subtitle class="pa-1 pl-4"> Length:  {{ starship.length }}</v-card-subtitle>
+        <v-card-subtitle class="pa-1 pl-4"> Crew:  {{ starship.crew }}</v-card-subtitle>
+        <v-card-subtitle class="pa-1 pl-4 pb-4"> Passengers:  {{ starship.passengers }}</v-card-subtitle>
+      </v-card>
+    </template>
     <v-card
       class="mt-3"
       v-for="comment in comments"
@@ -83,33 +93,33 @@ import { ref } from '@vue/composition-api'
 import { useStore } from '@/hooks/useStore'
 
 export default {
-  name: 'Planet',
+  name: 'Starship',
   setup () {
     const { route, router } = useRouter()
-    const planet = ref({})
+    const starship = ref({})
     const store = useStore()
     const comments = ref([])
-    const showPlanet = async () => {
-      const { result, data } = await store.dispatch('planets/getPlanet', { id: route.value.params.planetId })
+    const showStarship = async () => {
+      const { result, data } = await store.dispatch('starships/getStarship', { id: route.value.params.starshipId })
       if (result) {
-        planet.value = data
+        starship.value = data
       }
-      console.log(planet.value)
+      console.log(starship.value)
     }
+    showStarship()
     const isCommentsLoading = ref(true)
     const showComments = async () => {
       isCommentsLoading.value = true
-      const { result, data } = await store.dispatch('comments/getSomeComments', { id: route.value.params.planetId })
+      const { result, data } = await store.dispatch('comments/getSomeComments', { id: route.value.params.starshipId })
       if (result) {
         comments.value = data
       }
       isCommentsLoading.value = false
     }
     showComments()
-    showPlanet()
     return {
       router,
-      planet,
+      starship,
       comments,
       isCommentsLoading
     }
@@ -118,5 +128,14 @@ export default {
 </script>
 
 <style scoped>
-
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'),
+  url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+  url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+  url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
 </style>
